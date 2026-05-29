@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Loremaster · A guided D&amp;D campaign builder</title>
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght,SOFT@9..144,300..600,0..100&family=DM+Sans:opsz,wght@9..40,400..600&display=swap" rel="stylesheet">
+
+  <!-- Icons -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.5.0/dist/tabler-icons.min.css">
+
+  <!-- App styles -->
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+  <!-- App root — JS renders everything in here -->
+  <div class="app-shell" id="app"></div>
+
+  <!-- Dev tools -->
+  <button class="dev-reset" onclick="resetApp()" title="Wipe all data and restart">
+    <i class="ti ti-refresh" style="font-size: 12px; vertical-align: -1px; margin-right: 2px;"></i>Reset all
+  </button>
+  <div class="saved-indicator" id="saved-indicator">
+    <i class="ti ti-check" style="font-size: 11px; vertical-align: -1px;"></i> Saved
+  </div>
+
+  <!-- Modal mount point -->
+  <div id="modal-mount"></div>
+
+  <!-- =====================================================
+       JavaScript — load order matters:
+       data → state → render → feature modules → init
+       ===================================================== -->
+
+  <!-- 1. Static data pools (tips, NPCs, pitches, etc.) -->
+  <script src="js/data.js"></script>
+
+  <!-- 2. State management, save/load, utility helpers -->
+  <script src="js/state.js"></script>
+
+  <!-- 3. Render router + topbar + campaign switcher -->
+  <script src="js/render.js"></script>
+
+  <!-- 4. Feature modules (order doesn't matter between these) -->
+  <script src="js/onboarding.js"></script>
+  <script src="js/campaigns.js"></script>
+  <script src="js/dashboard.js"></script>
+  <script src="js/npcs.js"></script>
+  <script src="js/sessions.js"></script>
+  <script src="js/threads.js"></script>
+  <script src="js/tips.js"></script>
+  <script src="js/settings.js"></script>
+
+  <!-- 5. Boot: load saved state and render the first screen -->
+  <script>
+    load();
+    render();
+  </script>
+
+</body>
+</html>
