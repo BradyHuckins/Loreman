@@ -21,10 +21,12 @@
   <!-- App root — JS renders everything in here -->
   <div class="app-shell" id="app"></div>
 
-  <!-- Dev tools -->
-  <button class="dev-reset" onclick="resetApp()" title="Wipe all data and restart">
-    <i class="ti ti-refresh" style="font-size: 12px; vertical-align: -1px; margin-right: 2px;"></i>Reset all
+  <!-- Dev tool: wipes local data and restarts onboarding -->
+  <button class="dev-reset" onclick="resetApp()" title="Wipe local data and restart">
+    <i class="ti ti-refresh" style="font-size: 12px; vertical-align: -1px; margin-right: 2px;"></i>Reset
   </button>
+
+  <!-- Auto-save indicator -->
   <div class="saved-indicator" id="saved-indicator">
     <i class="ti ti-check" style="font-size: 11px; vertical-align: -1px;"></i> Saved
   </div>
@@ -32,21 +34,41 @@
   <!-- Modal mount point -->
   <div id="modal-mount"></div>
 
-  <!-- =====================================================
-       JavaScript — load order matters:
-       data → state → render → feature modules → init
-       ===================================================== -->
 
-  <!-- 1. Static data pools (tips, NPCs, pitches, etc.) -->
+  <!-- =====================================================================
+       JavaScript — load order matters. Do not rearrange.
+
+       Supabase CDN  →  config  →  supabase client
+       →  data  →  state  →  db  →  render  →  auth
+       →  feature modules
+       →  boot
+       ===================================================================== -->
+
+  <!-- 1. Supabase client library (exposes window.supabase) -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js"></script>
+
+  <!-- 2. Your project URL + anon key — FILL THESE IN (see SETUP.md) -->
+  <script src="js/config.js"></script>
+
+  <!-- 3. Creates the global `sb` Supabase client -->
+  <script src="js/supabase.js"></script>
+
+  <!-- 4. Static data pools: tips, pitches, NPCs, hooks, factions, book colors -->
   <script src="js/data.js"></script>
 
-  <!-- 2. State management, save/load, utility helpers -->
+  <!-- 5. State object, save/load, uid, esc, fmtDate and other utilities -->
   <script src="js/state.js"></script>
 
-  <!-- 3. Render router + topbar + campaign switcher -->
+  <!-- 6. All Supabase read/write operations -->
+  <script src="js/db.js"></script>
+
+  <!-- 7. Render router + topbar + campaign switcher + user menu -->
   <script src="js/render.js"></script>
 
-  <!-- 4. Feature modules (order doesn't matter between these) -->
+  <!-- 8. Auth screen, signIn, signUp, signOut, boot sequence -->
+  <script src="js/auth.js"></script>
+
+  <!-- 9. Feature modules (order within this group doesn't matter) -->
   <script src="js/onboarding.js"></script>
   <script src="js/campaigns.js"></script>
   <script src="js/dashboard.js"></script>
@@ -56,10 +78,9 @@
   <script src="js/tips.js"></script>
   <script src="js/settings.js"></script>
 
-  <!-- 5. Boot: load saved state and render the first screen -->
+  <!-- 10. Boot: check session → load data → render first screen -->
   <script>
-    load();
-    render();
+    boot();
   </script>
 
 </body>

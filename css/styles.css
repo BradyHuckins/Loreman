@@ -757,3 +757,182 @@ select { cursor: pointer; }
 /* Saved indicator */
 .saved-indicator { position: fixed; bottom: 16px; left: 16px; font-size: 11px; padding: 6px 10px; background: var(--bg-success); color: var(--success-dark); border-radius: var(--radius); opacity: 0; transition: opacity 0.3s; pointer-events: none; z-index: 100; }
 .saved-indicator.show { opacity: 1; }
+
+/* ============================================================
+   Auth screen
+   ============================================================ */
+
+.auth-wrap {
+  max-width: 420px;
+  margin: 0 auto;
+  padding: 40px 24px 60px;
+  text-align: center;
+}
+
+.auth-header { margin-bottom: 28px; }
+
+.auth-feather {
+  font-size: 40px;
+  color: var(--accent);
+  display: block;
+  margin-bottom: 8px;
+}
+
+.auth-title {
+  font-size: 44px;
+  font-variation-settings: 'opsz' 144, 'SOFT' 80;
+  margin-bottom: 8px;
+}
+
+.auth-tagline {
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: 16px;
+  color: var(--ink-muted);
+  line-height: 1.5;
+}
+
+.auth-card {
+  background: var(--bg-surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 28px 32px;
+  box-shadow: var(--shadow-lift);
+  text-align: left;
+}
+
+.auth-tabs {
+  display: flex;
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 4px;
+  gap: 0;
+}
+
+.auth-tab {
+  flex: 1;
+  background: transparent;
+  border: none;
+  border-bottom: 2px solid transparent;
+  border-radius: 0;
+  color: var(--ink-muted);
+  padding: 10px 0;
+  font-size: 14px;
+  font-weight: 500;
+  text-align: center;
+  margin-bottom: -1px;
+  transition: color 0.15s, border-color 0.15s;
+}
+.auth-tab:hover { background: transparent; border-bottom-color: var(--border-strong); color: var(--ink); }
+.auth-tab.active { color: var(--accent-deep); border-bottom-color: var(--accent); }
+
+.auth-error {
+  background: var(--bg-danger);
+  border: 1px solid #D89A93;
+  border-radius: var(--radius);
+  padding: 10px 14px;
+  font-size: 13px;
+  color: var(--danger);
+  margin-top: 16px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  line-height: 1.4;
+}
+
+.auth-submit {
+  width: 100%;
+  margin-top: 24px;
+  padding: 12px;
+  justify-content: center;
+  font-size: 15px;
+}
+
+.auth-switch {
+  text-align: center;
+  margin-top: 16px;
+  font-size: 13px;
+  color: var(--ink-faint);
+}
+.auth-switch-link {
+  color: var(--accent);
+  cursor: pointer;
+}
+.auth-switch-link:hover { text-decoration: underline; }
+
+.auth-footer-note {
+  margin-top: 24px;
+  font-size: 12px;
+  color: var(--ink-faint);
+  font-family: var(--serif);
+  font-style: italic;
+  line-height: 1.6;
+  text-align: center;
+}
+
+/* ============================================================
+   Loading screen
+   ============================================================ */
+
+.loading-screen {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  gap: 12px;
+}
+
+.loading-feather {
+  font-size: 44px;
+  color: var(--accent);
+  animation: pulse 1.6s ease-in-out infinite;
+}
+
+.loading-text {
+  font-family: var(--serif);
+  font-size: 20px;
+  color: var(--ink-muted);
+  font-style: italic;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50%       { opacity: 0.5; transform: scale(0.92); }
+}
+
+/* Spinning loader icon used on auth submit button */
+@keyframes spin { to { transform: rotate(360deg); } }
+.spin { display: inline-block; animation: spin 0.7s linear infinite; }
+
+/* ============================================================
+   User avatar + menu
+   ============================================================ */
+
+.user-avatar {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  background: var(--accent);
+  color: white;
+  font-size: 14px;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  flex-shrink: 0;
+  transition: background 0.15s, transform 0.15s;
+  font-family: var(--sans);
+}
+.user-avatar:hover { background: var(--accent-deep); transform: scale(1.05); border-color: transparent; }
+
+.user-dropdown { min-width: 220px; }
+
+/* Mobile tweaks for auth */
+@media (max-width: 480px) {
+  .auth-card { padding: 22px 20px; }
+  .auth-title { font-size: 36px; }
+  .auth-wrap { padding: 24px 16px 48px; }
+}

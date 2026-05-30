@@ -83,10 +83,16 @@ function deleteCampaign(id) {
   const camp = state.campaigns.find(c => c.id === id);
   if (!camp) return;
   if (!confirm(`Delete "${camp.name}"? This can't be undone.`)) return;
+
+  // Remove from local state immediately
   state.campaigns = state.campaigns.filter(c => c.id !== id);
   if (state.activeId === id) {
     state.activeId = state.campaigns[0]?.id || null;
   }
+
+  // Delete from Supabase (cascade removes npcs, sessions, threads)
+  dbDeleteCampaign(id);
+
   save();
   if (state.campaigns.length === 0) go('campaigns-empty');
   else render();
